@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CompetitionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,5 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/competition', [CompetitionController::class, 'index'])->name('competition.index');
+Route::post('/competition', [CompetitionController::class, 'store'])->name('competition.store');
+Route::get('/teams/search', [CompetitionController::class, 'searchTeam'])->name('teams.search');
 
 require __DIR__.'/auth.php';

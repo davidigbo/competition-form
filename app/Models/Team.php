@@ -15,7 +15,7 @@ class Team extends Model
         return $this->hasMany(Member::class);
     }
 
-    public function proposal() {
-        $this->hasOne(PolicyProposal::class);
+    public function policyProposal() {
+       return $this->hasOne(PolicyProposal::class);
     }
 }

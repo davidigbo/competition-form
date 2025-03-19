@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('policy_proposals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
-            $table->string('proposal_document');
+            $table->foreignId('member_id')->constrained()->cascadeOnDelete();
+            $table->string('document_path'); // File path for policy proposal
+            // $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            // $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

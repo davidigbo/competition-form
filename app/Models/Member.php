@@ -16,5 +16,9 @@ class Member extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function policyProposal() {
+        return $this->hasOne(PolicyProposal::class);
+    }
 }
 

@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_address');
             $table->string('institution_name');
-            $table->string('department');
-            $table->string('level');
+            $table->string('department_level');
             $table->string('matric_number');
             $table->string('proof_documnent');
             $table->timestamps();

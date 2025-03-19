@@ -7,17 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class PolicyProposal extends Model
 {
-    use HsaFactory;
+    use HasFactory;
 
     protected $fillable = [
-        'policy_id',
-        'user_id',
-        'status',
-        'comment',
+        'team_id',
+        'member_id',
+        'document_path',
     ];
 
-    public function policy()
+    public function team()
     {
-        return $this->belongsTo(Policy::class);
+        return $this->belongsTo(Team::class);
+    }
+
+    public function member() {
+        return $this->belongsTo(Member::class);
     }
 }

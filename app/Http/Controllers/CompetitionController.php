@@ -33,20 +33,25 @@ class CompetitionController extends Controller {
             'department_level' => 'required|string',
             'matric_number' => 'required|string|unique:members,matric_number',
             'proof_document' => 'required|file|mimes:pdf,jpg,png|max:2048',
+            'policy_proposal' => 'required|file|mimes:pdf,docx|max:5120',
         ]);
 
-        // If no team_id is provided, create a new team
-        if (!$request->team_id) {
+        // Handle team selection or creation
+        $team = null;
+        if ($request->team_id) {
+            $team = Team::find($request->team_id);
+        } elseif ($request->new_team_name) {
             $team = Team::create(['name' => $validated['new_team_name']]);
         } else {
-            $team = Team::find($request->team_id);
+            return back()->withErrors(['team' => 'Please select an existing team or enter a new team name.']);
         }
 
-        // Upload proof document
-        $proofPath = $request->file('proof_document')->store('proofs');
+        // Upload documents
+        $proofPath = $request->file('proof_document')->store('public/proofs');
+        $proposalPath = $request->file('policy_proposal')->store('public/proposals');
 
-        // Create member
-        Member::create([
+        // Store member data
+        $member = Member::create([
             'team_id' => $team->id,
             'full_name' => $validated['full_name'],
             'email' => $validated['email'],
@@ -57,6 +62,13 @@ class CompetitionController extends Controller {
             'proof_document' => $proofPath
         ]);
 
-        return redirect()->route('competition.index')->with('success', 'Application submitted successfully!');
-    }
+        // Store policy proposal
+        PolicyProposal::create([
+            'team_id' => $team->id,
+            'member_id' => $member->id,
+            'document_path' => $proposalPath,
+        ]);
+
+        return redirect()->route('competition.index')->with('success', 'Submission successful!');
+    }    
 }

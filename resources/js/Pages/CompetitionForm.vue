@@ -164,7 +164,7 @@ const submitForm = async () => {
         formData.append("document_path", documentPath.value);
         formData.append("declaration", "1");
 
-        await axios.post("/competition/store", formData, {
+        await axios.post("/competition", formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

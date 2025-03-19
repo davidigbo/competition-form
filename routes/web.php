@@ -25,8 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+require __DIR__.'/auth.php';
+
 Route::get('/competition', [CompetitionController::class, 'index'])->name('competition.index');
 Route::post('/competition/store', [CompetitionController::class, 'store'])->name('competition.store');
 Route::get('/competition/search', [CompetitionController::class, 'searchTeam'])->name('competition.search');
-
-require __DIR__.'/auth.php';

@@ -32,34 +32,9 @@
             </div>
 
             <!-- Personal Details -->
-            <div class="mb-4">
-                <label class="block text-gray-700">Full Name</label>
-                <input v-model="form.full_name" type="text" required class="w-full p-2 border rounded-md" />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700">Email</label>
-                <input v-model="form.email" type="email" required class="w-full p-2 border rounded-md" />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700">Phone Number</label>
-                <input v-model="form.phone_number" type="text" required class="w-full p-2 border rounded-md" />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700">Institution</label>
-                <input v-model="form.institution_name" type="text" required class="w-full p-2 border rounded-md" />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700">Department & Level</label>
-                <input v-model="form.department_level" type="text" required class="w-full p-2 border rounded-md" />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700">Matric Number</label>
-                <input v-model="form.matric_number" type="text" required class="w-full p-2 border rounded-md" />
+            <div class="mb-4" v-for="field in personalDetails" :key="field.model">
+                <label class="block text-gray-700">{{ field.label }}</label>
+                <input :type="field.type" v-model="form[field.model]" required class="w-full p-2 border rounded-md" />
             </div>
 
             <!-- Upload Proof of Undergraduate Status -->
@@ -82,21 +57,10 @@
 
             <!-- Declaration -->
             <h2 class="text-lg font-semibold mb-2"> Declaration</h2>
-            <div class="mb-4">
+            <div class="mb-4" v-for="checkbox in declarations" :key="checkbox.model">
                 <label class="flex items-center space-x-2">
-                    <input type="checkbox" v-model="form.declarationConfirmed" required class="mr-2" />
-                    <span class="text-gray-700 text-sm">
-                        I confirm that all information provided is accurate and that I/we meet the eligibility criteria.
-                    </span>
-                </label>
-            </div>
-
-            <div class="mb-4">
-                <label class="flex items-center space-x-2">
-                    <input type="checkbox" v-model="form.acknowledgeEvaluation" required class="mr-2" />
-                    <span class="text-gray-700 text-sm">
-                        I acknowledge that my team’s submission will be evaluated.
-                    </span>
+                    <input type="checkbox" v-model="form[checkbox.model]" required class="mr-2" />
+                    <span class="text-gray-700 text-sm">{{ checkbox.label }}</span>
                 </label>
             </div>
 
@@ -154,8 +118,22 @@ const handleFileUpload = (type, event) => {
 const submitForm = () => {
     form.post("/competition/store", {
         forceFormData: true,
-        onSuccess: () => alert("Submission successful!"),
+        onSuccess: () => window.location.href = "/competition",
         onError: (errors) => console.error(errors),
     });
 };
+
+const personalDetails = ref([
+    { label: "Full Name", model: "full_name", type: "text" },
+    { label: "Email", model: "email", type: "email" },
+    { label: "Phone Number", model: "phone_number", type: "text" },
+    { label: "Institution", model: "institution_name", type: "text" },
+    { label: "Department & Level", model: "department_level", type: "text" },
+    { label: "Matric Number", model: "matric_number", type: "text" }
+]);
+
+const declarations = ref([
+    { label: "I confirm that all information provided is accurate and that I/we meet the eligibility criteria.", model: "declarationConfirmed" },
+    { label: "I acknowledge that my team’s submission will be evaluated.", model: "acknowledgeEvaluation" }
+]);
 </script>

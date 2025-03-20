@@ -33,7 +33,7 @@ class CompetitionController extends Controller {
             'department_level' => 'required|string',
             'matric_number' => 'required|string|unique:members,matric_number',
             'proof_document' => 'required|file|mimes:pdf,jpg,png|max:2048',
-            'policy_proposal' => 'required|file|mimes:pdf,docx|max:5120',
+            'document_path' => 'required|file|mimes:pdf,docx|max:5120',
         ]);
 
         // Handle team selection or creation
@@ -48,7 +48,7 @@ class CompetitionController extends Controller {
 
         // Upload documents
         $proofPath = $request->file('proof_document')->store('public/proofs');
-        $proposalPath = $request->file('document_path')->store('public/proposals');
+        $documentPath = $request->file('document_path')->store('public/proposals');
 
         // Store member data
         $member = Member::create([
@@ -66,7 +66,7 @@ class CompetitionController extends Controller {
         PolicyProposal::create([
             'team_id' => $team->id,
             'member_id' => $member->id,
-            'document_path' => $proposalPath,
+            'document_path' => $documentPath,
         ]);
 
         return redirect()->route('competition.index')->with('success', 'Submission successful!');

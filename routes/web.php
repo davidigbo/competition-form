@@ -28,5 +28,5 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/competition', [CompetitionController::class, 'index'])->name('competition.index');
-Route::post('/competition/store', [CompetitionController::class, 'store'])->name('competition.store');
-Route::get('/competition/search', [CompetitionController::class, 'searchTeam'])->name('competition.search');
+Route::post('/competition/store', [CompetitionController::class, 'store']);
+Route::get('/teams/search', [CompetitionController::class, 'searchTeam']);

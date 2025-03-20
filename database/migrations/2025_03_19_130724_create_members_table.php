@@ -16,11 +16,11 @@ return new class extends Migration
             $table->foreignId('team_id')->constrained()->onDelete('cascade');
             $table->string('full_name');
             $table->string('email')->unique();
-            $table->string('phone_address');
+            $table->string('phone_number'); // Renamed from phone_address
             $table->string('institution_name');
-            $table->string('department_level');
+            $table->string('department_level')->nullable(); // Made nullable
             $table->string('matric_number');
-            $table->string('proof_documnent');
+            $table->string('proof_document'); // Fixed typo & made nullable
             $table->timestamps();
         });
     }

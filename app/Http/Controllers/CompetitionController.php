@@ -48,7 +48,7 @@ class CompetitionController extends Controller {
 
         // Upload documents
         $proofPath = $request->file('proof_document')->store('public/proofs');
-        $proposalPath = $request->file('policy_proposal')->store('public/proposals');
+        $proposalPath = $request->file('document_path')->store('public/proposals');
 
         // Store member data
         $member = Member::create([

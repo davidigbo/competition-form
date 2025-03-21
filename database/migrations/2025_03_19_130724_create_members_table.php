@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number'); // Renamed from phone_address
             $table->string('institution_name');
-            $table->string('department_level')->nullable(); // Made nullable
+            $table->string('department_level'); // Made nullable
             $table->string('matric_number');
             $table->string('proof_document'); // Fixed typo & made nullable
+            $table->string('document_path'); // Added document path
             $table->timestamps();
         });
     }

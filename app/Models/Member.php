@@ -10,7 +10,7 @@ class Member extends Model
     use HasFactory;
 
     protected $fillable = ['team_id', 'full_name', 'email', 'phone_number', 'institution_name',
-    'department_name', 'level', 'matric_number', 'proof_document'];
+    'department_name', 'level', 'matric_number', 'proof_document', 'document_path'];
 
     public function team()
     {

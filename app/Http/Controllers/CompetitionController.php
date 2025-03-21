@@ -48,7 +48,11 @@ class CompetitionController extends Controller {
 
         // Upload documents
         $proofPath = $request->file('proof_document')->store('public/proofs');
-        $documentPath = $request->file('document_path')->store('public/proposals');
+        // $documentPath = $request->file('document_path')->store('public/proposals');
+        $documentPath = $request->file('document_path')->store('proposals', 'public');
+
+        return redirect()->back()->with('success', 'Document uploaded successfully!');
+
 
         // Store member data
         $member = Member::create([
@@ -59,14 +63,14 @@ class CompetitionController extends Controller {
             'institution_name' => $validated['institution_name'],
             'department_level' => $validated['department_level'],
             'matric_number' => $validated['matric_number'],
-            'proof_document' => $proofPath
+            'proof_document' => $proofPath,
+            'document_path' => $documentPath,
         ]);
 
         // Store policy proposal
         PolicyProposal::create([
             'team_id' => $team->id,
             'member_id' => $member->id,
-            'document_path' => $documentPath,
         ]);
 
         return redirect()->route('competition.index')->with('success', 'Submission successful!');

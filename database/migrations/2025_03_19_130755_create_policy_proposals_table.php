@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->foreignId('member_id')->constrained()->cascadeOnDelete();
-            $table->string('document_path'); // File path for policy proposal
+            // File path for policy proposal
             // $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             // $table->text('comment')->nullable();
             $table->timestamps();
